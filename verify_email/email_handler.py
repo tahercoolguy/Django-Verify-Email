@@ -121,6 +121,9 @@ def send_verification_email(request, form):
     return _VerifyEmail().send_verification_link(request, form)
 
 
+def send_verification_email_with_user(request, user):
+    return _VerifyEmail().send_verification_link_for_user(request, user)
+
 #  These is supposed to be called outside of this module
 def resend_verification_email(request, email, **kwargs):
     return _VerifyEmail().resend_verification_link(request, email, **kwargs)
