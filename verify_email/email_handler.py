@@ -69,10 +69,10 @@ class _VerifyEmail:
                     'as email field.'
                 )
 
-            verification_url = self.token_manager.generate_link(request, inactive_user, useremail)
+            verification_url = self.token_manager.generate_link(request, user, useremail)
             msg = render_to_string(
                 self.settings.get('html_message_template', raise_exception=True),
-                {"link": verification_url, "inactive_user": inactive_user}, 
+                {"link": verification_url, "inactive_user": user}, 
                 request=request
             )
 
