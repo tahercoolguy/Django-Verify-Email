@@ -55,6 +55,33 @@ class _VerifyEmail:
             inactive_user.delete()
             raise
 
+            
+    def send_verification_link_for_user(self, request, user):
+        user.is_active = False
+        user.save()
+
+        try:
+            useremail = form.cleaned_data.get(self.settings.get('email_field_name'))
+            if not useremail:
+                raise KeyError(
+                    'No key named "email" in your form. Your field should be named as email in form OR set a variable'
+                    ' "EMAIL_FIELD_NAME" with the name of current field in settings.py if you want to use current name '
+                    'as email field.'
+                )
+
+            verification_url = self.token_manager.generate_link(request, inactive_user, useremail)
+            msg = render_to_string(
+                self.settings.get('html_message_template', raise_exception=True),
+                {"link": verification_url, "inactive_user": inactive_user}, 
+                request=request
+            )
+
+            self.__send_email(msg, useremail)
+            return user
+        except Exception:
+            user.delete()
+            raise        
+
     def resend_verification_link(self, request, email, **kwargs):
         """
         This method needs the previously sent link to get encoded email and token from that.
