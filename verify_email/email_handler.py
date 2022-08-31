@@ -23,7 +23,7 @@ class _VerifyEmail:
         subject = self.settings.get('subject')
         send_mail(
             subject, strip_tags(msg),
-            from_email=self.settings.get('from_alias'),
+            from_email="taher@saifytech.com", #self.settings.get('from_alias')
             recipient_list=[useremail], html_message=msg
         )
 
