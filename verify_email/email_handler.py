@@ -61,7 +61,7 @@ class _VerifyEmail:
         user.save()
 
         try:
-            useremail = form.cleaned_data.get(self.settings.get('email_field_name'))
+            useremail = user.email
             if not useremail:
                 raise KeyError(
                     'No key named "email" in your form. Your field should be named as email in form OR set a variable'
