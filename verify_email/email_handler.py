@@ -21,9 +21,10 @@ class _VerifyEmail:
     # Private :
     def __send_email(self, msg, useremail):
         subject = self.settings.get('subject')
+        fromemail = self.settings.get('from_alias')
         send_mail(
             subject, strip_tags(msg),
-            from_email="taher@saifytech.com", #self.settings.get('from_alias')
+            from_email= fromemail, 
             recipient_list=[useremail], html_message=msg
         )
 
