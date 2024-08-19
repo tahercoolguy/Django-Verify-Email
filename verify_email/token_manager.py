@@ -50,7 +50,8 @@ class TokenManager(signing.TimestampSigner):
         salt = self.settings.get('salt', raise_exception=False)
         sep = self.settings.get('sep', raise_exception=False)
 
-        super().__init__(key, sep, salt)
+        # Update this line to use keyword arguments
+        super().__init__(key=key, sep=sep, salt=salt)
 
     # Private :
     def __get_seconds(self, interval):
